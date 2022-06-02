@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+
+<html lang="pt-BR">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JARVIS INTERFACE</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <script>//reconhecimento de fala
+    var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+    var recognition = new SpeechRecognition();
+
+
+    
+    function gravar(){
+    // This runs when the speech recognition service starts
+    recognition.onstart = function() {
+        console.log("We are listening. Try speaking into the microphone.");
+    };
+    
+    recognition.onspeechend = function() {
+        // when user is done speaking
+        recognition.stop();
+        console.log('parou')
+    }
+                  
+    // start recognition
+    recognition.start();
+
+    // This runs when the speech recognition service returns result
+    recognition.onresult = function(event) {
+        var transcript = event.results[0][0].transcript;
+        var confidence = event.results[0][0].confidence;
+        palavra = transcript;
+        console.log(transcript)
+
+
+        //voz do jarvis
+        console.log('conectado')
+
+        speaks = [{"name": "Clarinha", "lang":"pt-BR"}]
+
+        let fala = palavra;
+        console.log('valor recebido: ' + fala)
+
+        const msg = new SpeechSynthesisUtterance(); // cria um objeto sinterizador da fala
+        console.log('objeto criado')
+
+        // ATRIBUTOS/CARACTERISTICAS  DO OBJETO/VOZ
+
+        msg.volume = 1; //define o volume do áudio (de 0 a 1)
+        msg.rate = 1; // define a velocidade do áudio (0.1 a 1)
+        msg.pitch = 0.5; // define o tom em que o áudio é falado (de 0 a 2)
+        msg.text = fala; //Pega o valor do input e passa para o objeto sintetizar
+
+
+        const voice = speaks[0]; //pegamos o objeto que queremos que seja a nossa fala. [0], pois nosso array speaks só possui uma posição, que é a que queremos (Clarinha pt-BR)
+        voice.voiceURI = voice.name; //voiceURI busca o servidor da voz escolhida, no caso, pt-BR defnido em voice.name
+        msg.lang = voice.lang; // Define o idioma a ser utilizado para a fala, no caso, o que foi definido para voice.lang
+
+        speechSynthesis.speak(msg); //executa a voz
+    };
+                  
+    
+    
+
+    
+}
+  </script>
+  <button onclick="gravar()">gravar</button>
+  <audio preload="auto" id="fadeSound" src="./img/FADE.mp3" type="audio/mpeg"></audio>
+
+
+
+  <audio controls autoplay hidden preload="auto">
+    <source id="audioo" src="./img/WELCOME.mp3" type="audio/mpeg">
+  </audio>
+  <video id="background-video" autoplay loop muted poster="https://c.tenor.com/6sjd441LIRIAAAAd/future.gif">
+  </video>
+  <div id="tudo">
+    <div id="info">
+      <div id="data">
+        <p id="current_date"></p>
+      </div>
+      <div id="titulo">
+        <strong>
+          <p id="msg"></p>
+        </strong>
+      </div>
+      <div id="hora">
+        <p id="current_hour"></p>
+      </div>
+    </div>
+    <script>
+      // Pega o horário atual
+      const now = new Date();
+
+      // Formata a data conforme dd/mm/aaaa hh:ii:ss
+      const dataHora = now.getUTCDate() + ' / ' + ((now.getMonth() + 1)) + ' / ' + now.getFullYear();
+      const Hora = (now.getHours()) + ' : ' + (now.getMinutes()) + ' : ' + (now.getSeconds()) + "";
+
+      // Exibe na tela usando a div#data-hora
+      document.getElementById('current_date').innerHTML = dataHora;
+      document.getElementById('current_hour').innerHTML = Hora;
+      const interval = setInterval(() => {
+        // Pega o horário atual
+        const now = new Date();
+
+        // Formata a data conforme dd/mm/aaaa hh:ii:ss
+        const dataHora = now.getUTCDate() + ' / ' + ((now.getMonth() + 1)) + ' / ' + now.getFullYear();
+        const Hora = (now.getHours()) + ' : ' + (now.getMinutes()) + ' : ' + (now.getSeconds()) + "";
+
+        // Exibe na tela usando a div#data-hora
+        document.getElementById('current_date').innerHTML = dataHora;
+        document.getElementById('current_hour').innerHTML = Hora;
+      }, 1000);
+    </script>
+    <div id="containerExpansivel">
+      <div id="notas"  onmouseover="mostra(), fadeSound()" onmouseout="apaga(), fadeSound()">
+        <div id="caixa">
+          <h2 id="tituloNotas" class="aparece">NOTAS</h2>
+          <textarea id="digite" onmouseover="autoresize()" class="aparece"></textarea>
+        </div>
+        <script>
+          function salvar(){
+          let texto = document.getElementById("digite").value;
+          let blob = new Blob([texto],
+              {
+                 type: "text/plain;charset=utf-8"
+              });
+          saveAs(blob, "texxto" + ".txt")}
+        </script>
+        <button id="submit" onclick="salvar()">Salvar</button>
+      </div>
+      <div id="biblia">
+        <p id="versiculo"></p>
+      </div>
+    </div>
+
+    <div id="container">
+      <div class="div1">
+        <div class="dentro">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pulvinar luctus ipsum, a porttitor arcu auctor
+          ut. Nulla sit amet nisi ac tortor porta interdum. Aliquam sed nisi odio. Nunc vestibulum diam a lacinia
+          tempor. Nullam ut consectetur ipsum. Etiam molestie urna a sem hendrerit pellentesque. Sed erat ligula, luctus
+          sed urna ultricies, vehicula dapibus tortor. Ut rhoncus a tellus quis bibendum. Nulla luctus, lacus in
+          malesuada suscipit, lectus sem ullamcorper velit, vel semper mauris turpis eget felis. Suspendisse dignissim
+          interdum nisi, vitae ultricies lectus faucibus quis.
+        </div>
+      </div>
+      <div class="div2">
+        <div class="dentro">
+          
+        </div>
+      </div>
+      <div class="div3">
+        <div class="dentro">
+          Quisque et tortor aliquet, scelerisque purus luctus, laoreet leo. Quisque est lorem, faucibus a odio eu,
+          malesuada sollicitudin neque. Vestibulum eget cursus risus. Donec ac vehicula nunc. Nunc lorem felis,
+          imperdiet non porttitor sed, aliquam sit amet lectus. Nullam non sollicitudin dolor. Class aptent taciti
+          sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam elit augue, rutrum at magna at,
+          hendrerit volutpat enim. Sed congue lacus eleifend, fermentum nisl sed, sagittis lacus. Suspendisse egestas,
+          mauris vitae molestie ornare, orci diam cursus justo, ut pellentesque eros enim ut ex. Pellentesque porta
+          feugiat tempus. Phasellus eget justo accumsan, volutpat elit vitae, congue mi. Proin augue mi, pretium ac eros
+          at, vehicula euismod nulla. Praesent tempor porttitor sagittis. Morbi metus sem, ultricies sed elementum at,
+          tempus eu felis.
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+  <script>function apagan(valor){
+    document.getElementById('digite').innerHTML = valor
+}</script>
+  <script src="./FileSaver.js"></script>
+  <script src="./renderer.js"></script>
+</body>
+
+</html>
