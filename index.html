@@ -13,7 +13,8 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 
-<body>
+<body style="margin-top: 0;">
+  <div id="sinalizador"></div>
   <script>//reconhecimento de fala
     var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
     var recognition = new SpeechRecognition();
@@ -21,6 +22,8 @@
 
     
     function gravar(){
+    
+      abre()
     // This runs when the speech recognition service starts
     recognition.onstart = function() {
         console.log("We are listening. Try speaking into the microphone.");
@@ -65,17 +68,14 @@
         const voice = speaks[0]; //pegamos o objeto que queremos que seja a nossa fala. [0], pois nosso array speaks só possui uma posição, que é a que queremos (Clarinha pt-BR)
         voice.voiceURI = voice.name; //voiceURI busca o servidor da voz escolhida, no caso, pt-BR defnido em voice.name
         msg.lang = voice.lang; // Define o idioma a ser utilizado para a fala, no caso, o que foi definido para voice.lang
-
+        
         speechSynthesis.speak(msg); //executa a voz
+        fecha()
     };
-                  
-    
-    
-
     
 }
   </script>
-  <button onclick="gravar()">gravar</button>
+  <button onclick="iniciar()">gravar</button>
   <audio preload="auto" id="fadeSound" src="./img/FADE.mp3" type="audio/mpeg"></audio>
 
 
@@ -178,8 +178,6 @@
 
 
   </div>
-  <script>function apagan(valor){
-    document.getElementById('digite').innerHTML = valor
 }</script>
   <script src="./FileSaver.js"></script>
   <script src="./renderer.js"></script>
