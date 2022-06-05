@@ -75,9 +75,7 @@
     
 }
   </script>
-  <button id="funciona"></button>
   <audio preload="auto" id="fadeSound" src="./img/FADE.mp3" type="audio/mpeg"></audio>
-
 
   <audio controls autoplay hidden preload="auto">
     <source id="audioo" src="./img/WELCOME.mp3" type="audio/mpeg">
@@ -151,7 +149,7 @@
         </div>
       </div>
       <div class="div2">
-        <div class="dentro">
+        <div class="dentro" id="statuson">
           
         </div>
       </div>
@@ -167,16 +165,17 @@
   </div>
   <script>
     window.onload = () => {
-    const button = document.getElementById("funciona");
-    button.addEventListener('click', () => {
+    const button = document.getElementById("titulo");
+    const statuson = document.getElementById('statuson');
+    button.addEventListener('mouseover', () => {
       if (button.style['animation-name'] === 'flash') {
         recognition.stop();
-        button.style['animation-name'] = 'none';
-        button.innerText = 'Press to Start';
+        statuson.style['animation-name'] = 'none';
+        statuson.innerText = 'rt';
         content.innerText = '';
       } else {
-        button.style['animation-name'] = 'flash';
-        button.innerText = 'Press to Stop';
+        statuson.style['animation-name'] = 'flash';
+        statuson.innerText = 'op';
         recognition.start();
       }
     });
@@ -203,7 +202,6 @@
 
       //VOZ DO JARVIS ----------------------------------------------
       
-
       speaks = [
         {
           "name": "Clarinha",
@@ -212,39 +210,56 @@
       ]
 
       if (result.includes('arvi')){
-        resposta = 'Você disse Járvis'
+        respostanum = Math.floor(Math.random() * 5 + 1);
+
+        if (respostanum == 1){
+          resposta = 'Estou aqui'
+        }
+        else if(respostanum == 2){
+          resposta = 'Bem vindo de volta'
+        }
+        else if(respostanum == 3){
+          resposta = 'Sim?'
+        }
+        else if(respostanum == 4){
+          resposta = 'jarvis ativo'
+        }
+        else if(respostanum == 5){
+          resposta = 'Inicializando servidor principal. Olá senhor!'
+        }
       }
-      if (result.includes('udo') && result.includes('e')){
+      else if (result.includes('udo') && result.includes('e')){
         resposta = 'Tudo bem, e com o senhor?'
       }
-      if (result.includes('nos') && result.includes('oc') && result.includes('em')){
+      else if (result.includes('nos') && result.includes('oc') && result.includes('em')){
         resposta = 'Fui criado anteontem, tenho dois dias de, entre aspas, vida.'
       }
-      if (result.includes('oc') && result.includes('é') && result.includes('ue')){
+      else if (result.includes('oc') && result.includes('é') && result.includes('ue')){
         resposta = 'Só um script qualquer'
       }
-      if(result.includes('esligar')){
+      else if(result.includes('esligar')){
         resposta = "desligando, até mais."
         recognition.stop();
-        button.style['animation-name'] = 'none';
-        button.innerText = 'Press to Start';
+        statuson.style['animation-name'] = 'none';
+        statuson.innerText = 'Press to Start';
         content.innerText = '';
       }
-      if(result.includes('+')){
-        x = result.substring(0, 2)
-        x = parseInt(num)
-        y = result.substring(4)
-        y = parseInt(num)
-        console.log(iguala)
-        iguala = x + y
-        result = iguala
+      else if(result.includes('+')){
+        let x = result.substring(0, 1);
+        x = parseInt(x)
+        let y = result.substring(4);
+        y = parseInt(y)
+        iguala = x + y;
+        console.log(iguala);
+        result = iguala;
       }
 
       else{
-        result = finall
+        resposta = ""
+        console.log(resposta)
       };
 
-      const timee = setTimeout([document.getElementById('falaJarvis').innerHTML = resposta], 3000) ;
+      document.getElementById('falaJarvis').innerHTML = resposta;
 
       const msg = new SpeechSynthesisUtterance();
       msg.volume = 1; //define o volume do áudio (de 0 a 1)
