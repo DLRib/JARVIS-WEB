@@ -75,7 +75,7 @@
     
 }
   </script>
-  <button onclick="iniciar()">gravar</button>
+  <button id="funciona"></button>
   <audio preload="auto" id="fadeSound" src="./img/FADE.mp3" type="audio/mpeg"></audio>
 
 
@@ -146,13 +146,8 @@
 
     <div id="container">
       <div class="div1">
-        <div class="dentro">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pulvinar luctus ipsum, a porttitor arcu auctor
-          ut. Nulla sit amet nisi ac tortor porta interdum. Aliquam sed nisi odio. Nunc vestibulum diam a lacinia
-          tempor. Nullam ut consectetur ipsum. Etiam molestie urna a sem hendrerit pellentesque. Sed erat ligula, luctus
-          sed urna ultricies, vehicula dapibus tortor. Ut rhoncus a tellus quis bibendum. Nulla luctus, lacus in
-          malesuada suscipit, lectus sem ullamcorper velit, vel semper mauris turpis eget felis. Suspendisse dignissim
-          interdum nisi, vitae ultricies lectus faucibus quis.
+        <div class="dentro" id="content">
+          Diga algo.
         </div>
       </div>
       <div class="div2">
@@ -161,16 +156,8 @@
         </div>
       </div>
       <div class="div3">
-        <div class="dentro">
-          Quisque et tortor aliquet, scelerisque purus luctus, laoreet leo. Quisque est lorem, faucibus a odio eu,
-          malesuada sollicitudin neque. Vestibulum eget cursus risus. Donec ac vehicula nunc. Nunc lorem felis,
-          imperdiet non porttitor sed, aliquam sit amet lectus. Nullam non sollicitudin dolor. Class aptent taciti
-          sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam elit augue, rutrum at magna at,
-          hendrerit volutpat enim. Sed congue lacus eleifend, fermentum nisl sed, sagittis lacus. Suspendisse egestas,
-          mauris vitae molestie ornare, orci diam cursus justo, ut pellentesque eros enim ut ex. Pellentesque porta
-          feugiat tempus. Phasellus eget justo accumsan, volutpat elit vitae, congue mi. Proin augue mi, pretium ac eros
-          at, vehicula euismod nulla. Praesent tempor porttitor sagittis. Morbi metus sem, ultricies sed elementum at,
-          tempus eu felis.
+        <div class="dentro" id="falaJarvis">
+          falas do Jarvis
         </div>
       </div>
 
@@ -178,7 +165,103 @@
 
 
   </div>
-}</script>
+  <script>
+    window.onload = () => {
+    const button = document.getElementById("funciona");
+    button.addEventListener('click', () => {
+      if (button.style['animation-name'] === 'flash') {
+        recognition.stop();
+        button.style['animation-name'] = 'none';
+        button.innerText = 'Press to Start';
+        content.innerText = '';
+      } else {
+        button.style['animation-name'] = 'flash';
+        button.innerText = 'Press to Stop';
+        recognition.start();
+      }
+    });
+
+    const content = document.getElementById('content');
+
+    const recognition = new webkitSpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = false;
+    recognition.onresult = function (event) {
+      let result = '';
+      
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        result += event.results[i][0].transcript;
+      }
+      if (result !== 1 && result.includes('arvi')){
+        // INCLUIR O QUE QUER FALAR
+        console.log('vc disse Jarvis.')
+
+
+      }
+      content.innerText = result;
+      finall = result
+
+      //VOZ DO JARVIS ----------------------------------------------
+      
+
+      speaks = [
+        {
+          "name": "Clarinha",
+          "lang":"pt-BR"
+       }
+      ]
+
+      if (result.includes('arvi')){
+        resposta = 'Você disse Járvis'
+      }
+      if (result.includes('udo') && result.includes('e')){
+        resposta = 'Tudo bem, e com o senhor?'
+      }
+      if (result.includes('nos') && result.includes('oc') && result.includes('em')){
+        resposta = 'Fui criado anteontem, tenho dois dias de, entre aspas, vida.'
+      }
+      if (result.includes('oc') && result.includes('é') && result.includes('ue')){
+        resposta = 'Só um script qualquer'
+      }
+      if(result.includes('esligar')){
+        resposta = "desligando, até mais."
+        recognition.stop();
+        button.style['animation-name'] = 'none';
+        button.innerText = 'Press to Start';
+        content.innerText = '';
+      }
+      if(result.includes('+')){
+        x = result.substring(0, 2)
+        x = parseInt(num)
+        y = result.substring(4)
+        y = parseInt(num)
+        console.log(iguala)
+        iguala = x + y
+        result = iguala
+      }
+
+      else{
+        result = finall
+      };
+
+      const timee = setTimeout([document.getElementById('falaJarvis').innerHTML = resposta], 3000) ;
+
+      const msg = new SpeechSynthesisUtterance();
+      msg.volume = 1; //define o volume do áudio (de 0 a 1)
+      msg.rate = 1; // define a velocidade do áudio (0.1 a 1)
+      msg.pitch = 0.6; // define o tom em que o áudio é falado ( de 0 a 2)
+      msg.text = resposta;
+        
+        
+      const voice = speaks[0];
+      // console.log(`Voice: ${voice.name} and Lang: ${voice.lang}`);
+      voice.voiceURI = voice.name; //voiceURI busca o servidor da voz escolhida, no caso, pt-BR defnido em voice.name
+      msg.lang = voice.lang; // Define o idioma a ser utilizado para a fala, no caso, o que foi definido para voice.lang
+        
+      speechSynthesis.speak(msg); //executa a voz
+    };
+  };
+  </script>
   <script src="./FileSaver.js"></script>
   <script src="./renderer.js"></script>
 </body>
