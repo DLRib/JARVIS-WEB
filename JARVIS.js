@@ -158,6 +158,7 @@ function iniciado(){
         recognition.stop()
         result = "Obrigado.";
         resposta = "por nada, até depois";
+        jarvis();
       }
 
       else{
