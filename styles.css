@@ -1,0 +1,328 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
+
+* {
+    font-family: 'Raleway', sans-serif;
+}
+
+#background-video {
+    opacity: 0.1;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+
+body {
+    background-color: rgb(0, 0, 0);
+}
+
+#container {
+    animation: aparecer 2s ease;
+    padding: 50px;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    background-color: rgba(0, 0, 0, 0);
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 3;
+    border-radius: 8px;
+}
+
+.dentro {
+    border: 2px;
+    border-style: solid;
+    border-color: rgba(8, 37, 46, 255);
+    text-shadow: 0 0 5px rgb(192 219 255 / 75%), 0 0 32px rgb(65 120 255 / 24%);
+    word-wrap: break-word;
+    padding: 15px;
+    border-radius: 10px;
+    width: auto;
+    height: auto;
+    min-height: 10px;
+    min-width: 0px;
+    max-width: 250px;
+    background-color: rgba(0, 0, 0, 0.388);
+    color: rgb(108, 226, 255);
+    transition: 1s;
+}
+
+.dentro:hover {
+    text-shadow: 0 0 0px rgb(192 219 255 / 75%), 0 0 32px rgb(65 120 255 / 24%);
+    animation: float3 0.5s ease-in-out initial;
+    color: rgb(160, 119, 7);
+    border: 3px;
+    border-style: solid;
+    border-color: rgb(160, 119, 7);
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+@keyframes float {
+    0% {
+        transform: translate(0px, 0px);
+    }
+
+    21% {
+        transform: translate(-2px, -3px);
+    }
+
+    42% {
+        transform: translate(-3px, 2px);
+    }
+
+    61% {
+        transform: translate(2px, -3px);
+    }
+
+    82% {
+        transform: translate(0px, -2px);
+    }
+
+    100% {
+        transform: translate(0px, 0px);
+    }
+
+}
+
+@keyframes float2 {
+    0% {
+        transform: translate(0px, 0px);
+    }
+
+    21% {
+        transform: translate(2px, 3px);
+    }
+
+    42% {
+        transform: translate(3px, -2px);
+    }
+
+    61% {
+        transform: translate(-2px, 3px);
+    }
+
+    82% {
+        transform: translate(0px, 2px);
+    }
+
+    100% {
+        transform: translate(0px, 0px);
+    }
+
+}
+
+@keyframes float3 {
+    0% {
+        transform: translate(0px, 0px);
+    }
+
+    100% {
+        transform: translate(0px, -15px);
+    }
+
+}
+
+.div1 {
+    animation: float 10s ease-out infinite;
+}
+
+.div2 {
+    animation: float2 10s ease-out infinite;
+}
+
+.div3 {
+    animation: float 18s ease-out infinite;
+}
+
+@keyframes aparecer {
+    0% {
+        transform: translate(0, 15px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translate(0, 0px);
+        opacity: 1;
+    }
+}
+
+@keyframes aparecerLado {
+    0% {
+        transform: translate(0px, -30px);
+        opacity: 0;
+        scale: 1;
+    }
+
+    100% {
+        transform: translate(0, 0px);
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+#info {
+    animation: aparecerLado 2s ease-out;
+    display: flex;
+    justify-content: space-between;
+}
+
+#current_date {
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px;
+    border-style: solid;
+    color: white;
+    text-shadow: 0 0 5px rgb(192 219 255 / 75%), 0 0 32px rgb(65 120 255 / 24%);
+}
+
+#current_hour {
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px;
+    border-style: solid;
+    color: white;
+    text-shadow: 0 0 5px rgb(192 219 255 / 75%), 0 0 32px rgb(65 120 255 / 24%);
+}
+
+
+#titulo {
+    animation: float 15s ease-out infinite;
+    font-size: 1cm;
+    color: white;
+    text-shadow: 0 0 5px rgb(192 219 255 / 75%), 0 0 32px rgb(65 120 255 / 24%);
+}
+
+#titulo:hover {
+    cursor: pointer;
+}
+
+#containerExpansivel {
+    padding-top: 30px;
+    padding-left: 60px;
+    padding-right: 60px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#submit {
+    opacity: 0;
+    transition: 0.5s;
+    border: 3px aqua solid;
+    background-color: transparent;
+    border-radius: 10px;
+    color: aquamarine;
+    padding: 5px;
+}
+
+#submit:hover {
+    opacity: 1;
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+#notas {
+    transition: 0.5s;
+    height: 10px;
+    min-width: 200px;
+    text-align: center;
+    color: aqua;
+    text-shadow: 0 0 5px rgba(118, 228, 255, 0.75), 0 0 32px rgb(65 120 255 / 24%);
+    background-color: rgba(72, 23, 23, 0);
+    border: 5px double mediumaquamarine;
+    border-radius: 10px;
+}
+
+#notas:hover {
+    height: 250px;
+}
+
+#caixa {
+    transition-delay: 2s;
+    opacity: 1;
+    transition: 2s;
+}
+
+#caixa.hide {
+    transition: 0.2s;
+    opacity: 0;
+}
+
+#digite {
+    margin: 5px;
+    box-shadow: 0 0 0 0;
+    border: 1px solid;
+    outline: 0;
+    padding: 5px;
+    word-wrap: break-word;
+    min-height: 120px;
+    width: 180px;
+    color: aqua;
+    text-shadow: 0 0 5px rgba(118, 228, 255, 0.75), 0 0 32px rgb(65 120 255 / 24%);
+    resize: none;
+    background-color: transparent;
+    border-radius: 15px;
+}
+
+#digite::-webkit-scrollbar {
+    width: 5px;
+    color: aqua;
+    border-radius: 5px;
+}
+
+#digite::-webkit-scrollbar-thumb {
+    color: rgb(108, 226, 255);
+    border-radius: 5px;
+}
+
+#digite::-webkit-scrollbar-track {
+    width: 10px;
+    background-color: rgb(22, 31, 31);
+    border-radius: 5px;
+}
+
+#biblia{
+    color: white;
+}
+
+#versiculo{
+    animation: float 8s infinite;
+    color: rgb(108, 226, 255);
+    text-shadow: 0 0 5px rgba(118, 228, 255, 0.75), 0 0 32px rgb(65 120 255 / 24%);
+    max-width: 300px;
+}
+
+#sinalizador{
+    background-image: linear-gradient(
+        to right, rgb(0, 0, 0), rgba(118, 228, 255, 0.75), black);
+    width: 0%;
+    height: 5px;
+    transition: 0.5s;
+}
+
+#sinalizador.abrir{
+    width: 100%;
+}
+
+body::-webkit-scrollbar{
+    background-color: transparent;
+    width: 5px;
+}
+
+body::-webkit-scrollbar-track{
+    width: 5px;
+    border-radius: 15px;
+    background-color: transparent;
+}
+
+body::-webkit-scrollbar-thumb{
+    width: 5px;
+    border-radius: 15px;
+    background-color: rgb(255, 255, 255);;
+}
